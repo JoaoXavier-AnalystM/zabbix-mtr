@@ -52,6 +52,7 @@ Este modelo cria um item CORE, que executa o script e recebe o retorno do JSON. 
 >- Tempo que levou para o último pacote ser recebido em determinado salto - Last(ms)
 
 Ajustar parametro Timeout no arquivo conf Server/proxy caso necessario:
+
 "Por default o Zabbix aguarda uma coleta por 3 segundos, se não houver um retorno, este item se tornará como “Não suportado (Not Supported)”
 
 ![alt text](https://github.com/JoaoXavier-AnalystM/zabbix-mtr/blob/main/images/image.png)
