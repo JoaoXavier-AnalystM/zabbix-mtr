@@ -23,7 +23,7 @@ Juntando todos os passos temos:
 
 `sudo -u zabbix ./mtr-zbx.sh`
 
-![alt text](image-2.png)
+![alt text](images\image-2.png)
 
 
 3. Importe o Template [Template MTR](zbx_mtr_templates.yaml) 
@@ -31,11 +31,11 @@ Juntando todos os passos temos:
 ## Configurações
 
 Ao incluir o novo host, link o mesmo a Template MTR
-![ADD Host](image-1.png)
+![ADD Host](images\image-1.png)
 
 Depois vá ate o campo **MACROS** e adiciono o IP a qual deseja realziar a verificação:
 
-![Inc IP](image-3.png)
+![Inc IP](images\image-3.png)
 
 Apos os procedimentos aguarde as coletas serem populadas.
 
@@ -56,4 +56,4 @@ Este modelo cria um item CORE, que executa o script e recebe o retorno do JSON. 
 
 
 ## Dados Coletados
-![Latest data](image.png)
+![Latest data](images\image.png)
