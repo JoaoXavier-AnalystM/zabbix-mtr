@@ -1,0 +1,130 @@
+zabbix_export:
+  version: '6.4'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    - uuid: dc2bbed60be44329b3e2ccb0c4363561
+      template: TEMPLATE-ZBX-MTR
+      name: TEMPLATE-ZBX-MTR
+      description: |
+        A TEMPLATE-ZBX-MTR é uma solução abrangente para monitorar a conectividade de rede usando o mtr (My traceroute). 
+        
+        Este template aproveita os recursos avançados do Zabbix, incluindo Itens Mestres, processamento JSONPath e Itens Dependentes, para fornecer uma visão detalhada do desempenho da rede.
+        
+        Ele monitora vários indicadores chave do MTR, incluindo:
+        - Média (avg) 
+        - Último (last)
+        - Perda de pacotes (loss) 
+        - Endereço IP (ip) 
+        
+        Permitindo uma análise precisa e em tempo real da qualidade da conexão de rede.
+        
+        Repositório: 
+        https://github.com/JoaoXavier-AnalystM/zabbix-mtr
+      groups:
+        - name: Templates/Applications
+      items:
+        - uuid: 1007faf4cdfd4143a04fc52fb7cab818
+          name: 'ZBX MTR Trace Core'
+          type: EXTERNAL
+          key: 'zbx-mtr.sh[{$ALVO}]'
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.report.hubs
+          tags:
+            - tag: Application
+              value: 'Master Items'
+      discovery_rules:
+        - uuid: 5604b62072a04c6da7cab8e83ee84039
+          name: 'Zabbix MTR Hops'
+          type: DEPENDENT
+          key: mtr.hop.discovery
+          delay: '0'
+          lifetime: 0d
+          item_prototypes:
+            - uuid: 8f4adb30c996408f8b1bcfaa83206577
+              name: 'MTR Hop {#HOP_VALUE}: {#HOP_HOST}'
+              type: DEPENDENT
+              key: 'mtr.hop.host[{#HOP_VALUE}]'
+              delay: '0'
+              history: 7d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.[?(@.count == "{#HOP_VALUE}")].host.first()'
+              master_item:
+                key: 'zbx-mtr.sh[{$ALVO}]'
+              tags:
+                - tag: Application
+                  value: 'MTR Hosts'
+            - uuid: af529af30c9d4cd19404017d489c7131
+              name: 'MTR Hop {#HOP_VALUE}: {#HOP_HOST} - Average RTT(ms)'
+              type: DEPENDENT
+              key: 'zbx.mtr.hop.avg[{#HOP_VALUE}]'
+              delay: '0'
+              history: 7d
+              trends: 180d
+              value_type: FLOAT
+              units: '!ms'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.[?(@.count == "{#HOP_VALUE}")]["Avg"].first()'
+              master_item:
+                key: 'zbx-mtr.sh[{$ALVO}]'
+              tags:
+                - tag: Application
+                  value: 'MTR Average RTT(ms)'
+            - uuid: 955dfef34cc44dca97a8e7e567ee7550
+              name: 'MTR Hop {#HOP_VALUE}: {#HOP_HOST} - Lats(ms)'
+              type: DEPENDENT
+              key: 'zbx.mtr.hop.last[{#HOP_VALUE}]'
+              delay: '0'
+              history: 7d
+              trends: 180d
+              value_type: FLOAT
+              units: '!ms'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.[?(@.count == "{#HOP_VALUE}")]["Last"].first()'
+              master_item:
+                key: 'zbx-mtr.sh[{$ALVO}]'
+              tags:
+                - tag: Application
+                  value: 'MTR Last (ms)'
+            - uuid: 85a830226cde475d9547bc692f7b29f0
+              name: 'MTR Hop {#HOP_VALUE}: {#HOP_HOST} - ICMP Loss%'
+              type: DEPENDENT
+              key: 'zbx.mtr.hop.loss[{#HOP_VALUE}]'
+              delay: '0'
+              history: 7d
+              trends: 180d
+              value_type: FLOAT
+              units: '%'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.[?(@.count == "{#HOP_VALUE}")]["Loss%"].first()'
+              master_item:
+                key: 'zbx-mtr.sh[{$ALVO}]'
+              tags:
+                - tag: Application
+                  value: 'MTR Loss%'
+          master_item:
+            key: 'zbx-mtr.sh[{$ALVO}]'
+          lld_macro_paths:
+            - lld_macro: '{#HOP_HOST}'
+              path: '$.[''host'']'
+            - lld_macro: '{#HOP_VALUE}'
+              path: '$.[''count'']'
+      macros:
+        - macro: '{$ALVO}'
+          description: 'IP para validação via MTR'
