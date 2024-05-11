@@ -35,8 +35,22 @@ Depois vá ate o campo **MACROS** e adiciono o IP a qual deseja realizar a verif
 
 Apos os procedimentos aguarde as coletas serem populadas.
 
-## Notas
 
+### Script
+> Primeiro, o script atribui o caminho do comando mtr ao variável MTR usando o comando which. 
+
+> Em seguida, o script atribui o endereço IP passado como argumento para a variável IP.
+
+Depois disso, o script executa o comando MTR com algumas opções:
+
+>- -r: Mostra os resultados na forma de relatório.
+>- -c3: Realiza três ciclos de teste.
+>- -w: Habilita a saída no formato JSON.
+>- -b: Ativa o modo de execução contínua, útil para monitoramento.
+>- -p: Usa ICMP em vez de UDP para enviar pacotes.
+>- -j: Especifica o IP de destino para o teste de traceroute.
+
+## Notas
 Este modelo foi testado no Zabbix 6.0.x, 6.4.x e RHEL 9 amd64/arm64. O arquivo YAML fornecido é exportado do Zabbix 6.4.11.
 
 Este modelo cria um item CORE, que executa o script e recebe o retorno do JSON. A partir daí temos uma regra de descoberta de baixo nível(LDD), que descobre 4 itens  prototypes:
@@ -46,7 +60,9 @@ Este modelo cria um item CORE, que executa o script e recebe o retorno do JSON. 
 >- % de perda de ICMP de cada salto - ICMP Loss%
 >- Tempo que levou para o último pacote ser recebido em determinado salto - Last(ms)
 
-Ajustar parâmetro Timeout no arquivo conf Server/proxy caso necessário:
+### Ajustes
+
+Parâmetro Timeout no arquivo conf Server/proxy caso necessário:
 
 “Por default o Zabbix aguarda uma coleta por 3 segundos, se não houver um retorno, este item se tornará como Não suportado (Not Supported)”
 
@@ -56,7 +72,6 @@ Ajustar parâmetro Timeout no arquivo conf Server/proxy caso necessário:
 
 - Triggers prototypes
 - Dashboard Grafana
-
 
 ## Dados Coletados
 ![alt text](https://github.com/JoaoXavier-AnalystM/zabbix-mtr/blob/main/images/image-4.png)
