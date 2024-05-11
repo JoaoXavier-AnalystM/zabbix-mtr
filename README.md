@@ -52,6 +52,12 @@ Ajustar parâmetro Timeout no arquivo conf Server/proxy caso necessário:
 
 ![alt text](https://github.com/JoaoXavier-AnalystM/zabbix-mtr/blob/main/images/image.png)
 
+## Próximas atualizações
+
+- Triggers prototypes
+- Dashboard Grafana
+
+
 ## Dados Coletados
 ![alt text](https://github.com/JoaoXavier-AnalystM/zabbix-mtr/blob/main/images/image-4.png)
 
