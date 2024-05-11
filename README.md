@@ -61,3 +61,10 @@ Ajustar parâmetro Timeout no arquivo conf Server/proxy caso necessário:
 ## Dados Coletados
 ![alt text](https://github.com/JoaoXavier-AnalystM/zabbix-mtr/blob/main/images/image-4.png)
 
+## DOCS
+
+Claro, aqui estão os links em formato Markdown:
+
+[Zabbix External Check](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/external)
+
+[Zabbix Agent Item](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/zabbix_agent)
