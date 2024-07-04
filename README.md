@@ -6,7 +6,7 @@ Este modelo foi construído no Zabbix 6.0.x, 6.4.x e RHEL 9 amd64/arm64.
 
 ## Instalação
 
-1. Copie o script [mtr-zbx.sh](mtr-zbx.sh) para pasta **ExternalScripts**  do seu Zabbix Server ou Zabbix Proxy. De permissão de execução para o script: `chmod +x mtr.sh` (As verificações externas são executadas com usuário `zabbix` que é criado na instalação do Zabbix) e por fim adicione permissão de execução para o arquivo.
+1. Copie o script [mtr-zbx.sh](mtr-zbx.sh) para pasta **ExternalScripts**  do seu Zabbix Server ou Zabbix Proxy. De permissão de execução para o script: `chmod +x mtr-zbx.sh` (As verificações externas são executadas com usuário `zabbix` que é criado na instalação do Zabbix) e por fim adicione permissão de execução para o arquivo.
 
 Juntando todos os passos temos:
 
