@@ -80,8 +80,6 @@ Parâmetro Timeout no arquivo conf Server/proxy caso necessário:
 
 ## DOCS
 
-Claro, aqui estão os links em formato Markdown:
-
 [Zabbix External Check](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/external)
 
 [Zabbix Agent Item](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/zabbix_agent)
